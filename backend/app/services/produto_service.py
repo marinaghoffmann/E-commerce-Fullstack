@@ -6,9 +6,8 @@ from sqlalchemy.orm import Session
 
 from app.models.produto import Produto
 from app.models.item_pedido import ItemPedido
-from app.models.pedido import Pedido
 from app.models.avaliacao_pedido import AvaliacaoPedido
-from app.schemas.produto import ProdutoCreate, ProdutoUpdate, ProdutoDetalheResponse
+from app.schemas.produto import ProdutoCreate, ProdutoUpdate, ProdutoDetalheResponse, ProdutoResponse
 from fastapi import HTTPException
 
 
@@ -35,7 +34,7 @@ def listar_produtos(
         "pagina": pagina,
         "tamanho": tamanho,
         "paginas": (total + tamanho - 1) // tamanho if total else 0,
-        "items": produtos,
+        "items": [ProdutoResponse.model_validate(p) for p in produtos],
     }
 
 
@@ -49,7 +48,6 @@ def buscar_produto_por_id(db: Session, id_produto: str) -> Produto:
 def obter_detalhe_produto(db: Session, id_produto: str) -> ProdutoDetalheResponse:
     produto = buscar_produto_por_id(db, id_produto)
 
-    # Vendas: itens_pedidos com esse produto
     vendas_query = (
         select(func.count(ItemPedido.id_item), func.sum(ItemPedido.preco_BRL))
         .where(ItemPedido.id_produto == id_produto)
@@ -58,7 +56,6 @@ def obter_detalhe_produto(db: Session, id_produto: str) -> ProdutoDetalheRespons
     total_vendas = total_vendas or 0
     receita_total = float(receita_total or 0)
 
-    # Avaliações via pedidos que contêm esse produto
     subq = (
         select(ItemPedido.id_pedido)
         .where(ItemPedido.id_produto == id_produto)
