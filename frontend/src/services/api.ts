@@ -128,6 +128,15 @@ export const imagensPorCategoria: Record<string, string> = {
   pcs: "https://upload.wikimedia.org/wikipedia/commons/6/63/Laptop-2411303_960_720.jpg",
   cds_dvds_musicais: "https://upload.wikimedia.org/wikipedia/commons/7/7c/CD_Store_in_Bristol.jpg",
   tablets_impressao_imagem: "https://upload.wikimedia.org/wikipedia/commons/5/56/GDC_Online_2011_Monday_Smartphone_and_Tablet_Games_Summit.jpg",
+  casa_conforto_2: "https://upload.wikimedia.org/wikipedia/commons/0/06/Bed_in_hotel_room_4.jpg",
+  construcao_ferramentas_construcao: "https://upload.wikimedia.org/wikipedia/commons/0/0a/DIY_means_choosing_the_right_tool_for_the_purpose_-_a_watchmaker%27s_nightmare.jpg",
+  construcao_ferramentas_ferramentas: "https://upload.wikimedia.org/wikipedia/commons/0/0a/DIY_means_choosing_the_right_tool_for_the_purpose_-_a_watchmaker%27s_nightmare.jpg",
+  construcao_ferramentas_iluminacao: "https://upload.wikimedia.org/wikipedia/commons/8/8d/Construction_site_of_Riverside_South_%28Canary_Wharf%29_%28September_2007%29_%28night%29.jpg",
+  construcao_ferramentas_jardim: "https://upload.wikimedia.org/wikipedia/commons/b/b8/Jardineiro_%2819273343536%29.jpg",
+  construcao_ferramentas_seguranca: "https://upload.wikimedia.org/wikipedia/commons/d/d1/Cologne_Germany_Industrial-work-with-Personal-Protective-Equipment-02.jpg",
+  moveis_cozinha_area_de_servico_jantar_e_jardim: "https://upload.wikimedia.org/wikipedia/commons/3/38/Heiligengrabe%2C_Kloster_Stift_zum_Heiligengrabe%2C_Abtei%2C_Speiseraum_--_2017_--_7082-8.jpg",
+  portateis_cozinha_e_preparadores_de_alimentos: "https://upload.wikimedia.org/wikipedia/commons/f/f7/Fresh_fruits_and_a_blender_are_arranged_on_a_kitchen_counter_for_smoothie_preparation.jpg",
+  seguros_e_servicos: "https://upload.wikimedia.org/wikipedia/commons/a/ab/Final_assembly_2.jpg",
 };
 
 export const getImagemCategoria = (categoria: string): string => {
