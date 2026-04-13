@@ -1,8 +1,9 @@
 # Sistema de Gerenciamento de E-Commerce
 
-Aplicação fullstack para gerenciamento de produtos de uma loja virtual.
+Aplicação fullstack para gerenciamento de produtos de uma loja virtual. O sistema permite ao gerente da loja visualizar o catálogo de produtos, acessar o desempenho de vendas e avaliações de cada produto, além de adicionar, editar e remover produtos.
 
 ## Stack
+
 - **Frontend:** React 18 + TypeScript + Vite + Tailwind CSS + Axios
 - **Backend:** FastAPI + SQLAlchemy + SQLite + Alembic + Pydantic v2
 
@@ -15,9 +16,9 @@ Aplicação fullstack para gerenciamento de produtos de uma loja virtual.
 
 ---
 
-## 1. Backend
+## Como rodar o projeto
 
-### Instalar dependências
+### 1. Backend
 
 ```bash
 cd backend
@@ -28,34 +29,34 @@ source .venv/bin/activate        # Linux/Mac
 pip install -r requirements.txt
 ```
 
-### Configurar variáveis de ambiente
+Crie o arquivo de variáveis de ambiente:
 
 ```bash
 cp .env.example .env
-# O padrão já usa SQLite local: DATABASE_URL=sqlite:///./database.db
 ```
 
-### Executar migrations (criar as tabelas)
+Execute as migrations para criar as tabelas:
 
 ```bash
-alembic upgrade head
+python -m alembic upgrade head
 ```
 
-### Popular o banco com os CSVs
-
-Coloque os arquivos CSV na pasta `backend/data/`:
-- `dim_consumidores.csv`
-- `dim_produtos.csv`
-- `dim_vendedores.csv`
-- `fato_pedidos.csv`
-- `fato_itens_pedidos.csv`
-- `fato_avaliacoes_pedidos.csv`
+O banco de dados já vem populado com os dados reais (`backend/database.db`). Caso queira popular manualmente, coloque os CSVs na pasta `backend/data/` e rode:
 
 ```bash
+pip install pandas
 python -m app.seed --data-dir ./data
 ```
 
-### Iniciar o servidor
+Os arquivos esperados são:
+- `dim_consumidores.csv`
+- `dim_produtos.csv`
+- `dim_vendedores.csv`
+- `fat_pedidos.csv`
+- `fat_itens_pedidos.csv`
+- `fat_avaliacoes_pedidos.csv`
+
+Inicie o servidor:
 
 ```bash
 uvicorn app.main:app --reload
@@ -66,18 +67,11 @@ Documentação Swagger: http://localhost:8000/docs
 
 ---
 
-## 2. Frontend
-
-### Instalar dependências
+### 2. Frontend
 
 ```bash
 cd frontend
 npm install
-```
-
-### Iniciar o servidor de desenvolvimento
-
-```bash
 npm run dev
 ```
 
@@ -85,17 +79,29 @@ Frontend disponível em: http://localhost:5173
 
 ---
 
+## Funcionalidades
+
+- Catálogo de produtos com busca por nome e filtro por categoria
+- Paginação da listagem de produtos
+- Página de detalhes com informações, vendas e avaliações de cada produto
+- Média e distribuição de avaliações por estrela
+- Histórico de vendas com receita total e ticket médio
+- Cadastro, edição e remoção de produtos
+- Tratamento de erros e estados de loading
+
+---
+
 ## Endpoints da API
 
 | Método | Rota | Descrição |
 |--------|------|-----------|
-| GET | `/produtos/` | Lista produtos (com busca e paginação) |
+| GET | `/produtos/` | Lista produtos com busca e paginação |
 | GET | `/produtos/categorias` | Lista categorias disponíveis |
 | GET | `/produtos/{id}` | Detalhes do produto com stats |
 | POST | `/produtos/` | Criar produto |
 | PUT | `/produtos/{id}` | Atualizar produto |
 | DELETE | `/produtos/{id}` | Remover produto |
-| GET | `/produtos/{id}/avaliacoes` | Avaliações do produto |
+| GET | `/produtos/{id}/avaliacoes` | Avaliações e média do produto |
 | GET | `/produtos/{id}/vendas` | Histórico de vendas |
 
 ### Parâmetros de busca (GET /produtos/)
@@ -123,6 +129,8 @@ Frontend disponível em: http://localhost:5173
 │   │   ├── main.py          # Aplicação FastAPI
 │   │   └── seed.py          # Script de população
 │   ├── alembic/             # Migrations
+│   ├── data/                # CSVs para seed (não versionados)
+│   ├── database.db          # Banco populado com dados reais
 │   └── requirements.txt
 │
 └── frontend/
