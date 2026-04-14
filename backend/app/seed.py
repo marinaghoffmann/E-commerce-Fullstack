@@ -8,7 +8,7 @@ import pandas as pd
 from sqlalchemy.orm import Session
 from app.database import SessionLocal, engine
 from app.models import Consumidor, Produto, Vendedor, Pedido, ItemPedido, AvaliacaoPedido
-from app.models import Base
+from app.database import Base
 
 
 def seed(data_dir: str):
